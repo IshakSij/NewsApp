@@ -4,6 +4,7 @@ import at.ac.fhcampuswien.models.Article;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 public class AppController {
     private List<Article> articles;
@@ -60,7 +61,7 @@ public class AppController {
      * method to generate a mocking list of articles
      * @return list of generated articles
      */
-    public static List<Article> generateMockList(){
+    private static List<Article> generateMockList(){
         List<Article> articles = new ArrayList<>();
 
         Article article1 = new Article("New York Times", "Eric Adams, a Bitcoin Booster, Is Taking First Paycheck in Crypto");
@@ -83,9 +84,9 @@ public class AppController {
     protected static List<Article> filterList(String query, List<Article> articles){
         if(query != null && articles != null) {
             List<Article> filtered = new ArrayList<>();
-            for(Article i : articles){
-                if(i.getTitle().toLowerCase().contains(query)){
-                    filtered.add(i);
+            for(Article article : articles){
+                if(article.getTitle().toLowerCase().contains(query.toLowerCase())){
+                    filtered.add(article);
                 }
             }
             return filtered;

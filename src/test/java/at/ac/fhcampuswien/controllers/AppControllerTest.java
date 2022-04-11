@@ -168,4 +168,28 @@ public class AppControllerTest {
         List<Article> actual = AppController.filterList(null, null);
         assertEquals(0, actual.size());
     }
+
+    @Test
+    @DisplayName("filter list, query upper case with lower case title - Test 8")
+    public void filterList_scenario8(){
+        List<Article> actual = AppController.filterList("eRic adams", testList);
+
+        List<Article> expected = new ArrayList<>();
+        Article article1 = new Article("New York Times", "Eric Adams, a Bitcoin Booster, Is Taking First Paycheck in Crypto");
+        expected.add(article1);
+
+        assertEquals(expected, actual);
+    }
+
+    @Test
+    @DisplayName("filter list, query lower case with upper case title - Test 9")
+    public void filterList_scenario9(){
+        List<Article> actual = AppController.filterList("booster", testList);
+
+        List<Article> expected = new ArrayList<>();
+        Article article1 = new Article("New York Times", "Eric Adams, a Bitcoin Booster, Is Taking First Paycheck in Crypto");
+        expected.add(article1);
+
+        assertEquals(expected, actual);
+    }
 }
