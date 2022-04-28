@@ -1,4 +1,6 @@
+/*
 package at.ac.fhcampuswien.controllers;
+
 
 import at.ac.fhcampuswien.models.Article;
 import org.junit.jupiter.api.BeforeAll;
@@ -154,7 +156,7 @@ public class AppControllerTest {
         assertThrows(IllegalArgumentException.class, () ->  AppController.filterList(null, articles));
     }
      */
-
+/*
     @Test
     @DisplayName("filter list, null list - Test 6")
     public void filterList_scenario6(){
@@ -193,3 +195,4 @@ public class AppControllerTest {
         assertEquals(expected, actual);
     }
 }
+*/
