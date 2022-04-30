@@ -5,8 +5,8 @@ import at.ac.fhcampuswien.controllers.AppController;
 import java.util.Scanner;
 
 public class Menu {
-    private static final String INVALID_INPUT_MESSAGE = "No valid input. Try again";
-    private static final String EXIT_MESSAGE = "Bye bye!";
+    private static final String INVALID_INPUT_MESSAGE = "Not a valid input. Try again!";
+    private static final String EXIT_MESSAGE = "Thank you for using our services! Bye bye!";
     private AppController controller;
 
     public void start(){
