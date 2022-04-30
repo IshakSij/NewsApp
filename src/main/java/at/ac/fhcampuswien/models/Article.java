@@ -10,6 +10,7 @@ public class Article {
     private final String content;
     private String author;
     private String title;
+    private Source source;
 
     public Article(String author, String title, String description, String url, String urlToImage, String publishedAt, String content) {
         this.author = author;
@@ -48,6 +49,10 @@ public class Article {
 
     public String getContent() {
         return content;
+    }
+
+    public Source source() {
+        return source;
     }
 
     @Override
