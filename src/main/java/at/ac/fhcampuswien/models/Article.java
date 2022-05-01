@@ -69,8 +69,8 @@ public class Article {
 
     @Override
     public String toString() {
-        return "Article{" +
-                ", author='" + author + '\'' +
+        return "Article:" +
+                " author='" + author + '\'' +
                 ", title='" + title + '\'' +
                 ", description='" + description + '\'' +
                 ", url='" + url + '\'' +
