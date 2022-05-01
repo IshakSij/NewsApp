@@ -99,18 +99,20 @@ public class NewsApi {
         HttpUrl.Builder urlBuilder = HttpUrl.parse(url).newBuilder();
         urlBuilder.addEncodedPathSegment("top-headlines");
 
-        urlBuilder.addQueryParameter("category".category.toString());
+        urlBuilder.addQueryParameter("category", category.toString());
         urlBuilder.addQueryParameter("country", choice.toString());
         return request(urlBuilder);
     }
 
-    public NewsResponse getAllNews (String query, Language language){
-        HttpUrl.Builder urlBuilder = HttpUrl.parse(root).newBuilder();
+    public NewsResponse getAllNews (String query, Language language, SortBy sortBy){
+        HttpUrl.Builder urlBuilder = HttpUrl.parse(url).newBuilder();
         urlBuilder.addPathSegment("everything");
 
         urlBuilder.addQueryParameter("q", query);
         urlBuilder.addQueryParameter("language", language.toString());
-        return handleRequest(urlBuilder);
+        urlBuilder.addQueryParameter("SortBy", sortBy.toString());
+
+        return request(urlBuilder);
     }
 
 }
