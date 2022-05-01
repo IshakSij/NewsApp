@@ -31,45 +31,9 @@ public class NewsApi {
         client = new OkHttpClient();
     }
 
-    /*
-    private static String endpoint;
-    private static String q = "https://newsapi.org/v2/everything?q=bitcoin&apiKey=4d43c7f5019b4865b5e5117f1b59943e";
-    private static String category = "https://newsapi.org/v2/everything?category=business&apiKey=4d43c7f5019b4865b5e5117f1b59943e";
-    private static String country = "https://newsapi.org/v2/everything?country=at&apiKey=4d43c7f5019b4865b5e5117f1b59943e";
-    private static String language = "https://newsapi.org/v2/everything?language=en&apiKey=4d43c7f5019b4865b5e5117f1b59943e";
-    private static String sortBy = "https://newsapi.org/v2/everything?sortby=relevancy&apiKey=4d43c7f5019b4865b5e5117f1b59943e";
-
-    // setters for the value of each
-
-    // NewsApiClient newsApiClient = new NewsApiClient("4d43c7f5019b4865b5e5117f1b59943e");
 
 
-    public static void setEndpoint(String endpoint) {
-        NewsApi.endpoint = endpoint;
-    }
-
-    public static void setQ(String q) {
-        NewsApi.q = q;
-    }
-
-    public static void setCategory(String category) {
-        NewsApi.category = category;
-    }
-
-    public static void setCountry(String country) {
-        NewsApi.country = country;
-    }
-
-    public static void setLanguage(String language) {
-        NewsApi.language = language;
-    }
-
-    public static void setSortBy(String sortBy) {
-        NewsApi.sortBy = sortBy;
-    }
-
-     */
-
+    // getInstance so that we can use the non-static classes in AppController
     public static NewsApi getInstance(){
         if (instance == null){
             instance = new NewsApi();
@@ -77,6 +41,9 @@ public class NewsApi {
         return instance;
     }
 
+    // apiKey is appended to the URL of TopHeadlines or AllNews, a request is made with the URL
+    // the request is made from the body to a string
+    // then gson parses the response string and the data is saved in NewsResponse
     private NewsResponse request(HttpUrl.Builder urlBuilder) {
         urlBuilder.addQueryParameter("apiKey", apiKey);
 
@@ -93,6 +60,7 @@ public class NewsApi {
         }
     }
 
+    // URL is "built" and the strings are appended
     public NewsResponse getTopHeadlines(String country, Category category, Country choice){
         HttpUrl.Builder urlBuilder = HttpUrl.parse(url).newBuilder();
         urlBuilder.addEncodedPathSegment("top-headlines");
@@ -102,6 +70,7 @@ public class NewsApi {
         return request(urlBuilder);
     }
 
+    // Method to get articleCount
     public NewsResponse getTotalNews() {
         HttpUrl.Builder urlBuilder = HttpUrl.parse(url).newBuilder();
         urlBuilder.addPathSegment("everything");
