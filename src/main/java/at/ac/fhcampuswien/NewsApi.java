@@ -1,11 +1,15 @@
 package at.ac.fhcampuswien;
 
 import com.google.gson.Gson;
+import jdk.jfr.Category;
 import okhttp3.HttpUrl;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
 import at.ac.fhcampuswien.response.NewsResponse;
+import org.intellij.lang.annotations.Language;
+
+import java.sql.SQLOutput;
 
 public class NewsApi {
 
@@ -60,8 +64,38 @@ public class NewsApi {
         return instance;
     }
 
-    private NewsResponse request(){
+    private NewsResponse request(HttpUrl.Builder urlBuilder){
+        urlBuilder.addQueryParameter("apiKey", apiKey);
 
+        Request request = new Request().url(urlBuilder()).build();
+
+        try (Response response = client.newCall(request).execute()){
+            Gson gson = new Gson();
+            String responseString = response.body().string();
+            NewsResponse newsResponse = gson.fromJson(responseString, NewsResponse.class);
+            return newsResponse;
+        } catch (Exception e){
+            System.out.println("Something went wrong!");
+            return null;
+        }
+    }
+
+    public NewsResponse getTopHeadlines(String country, Category category, Country choice){
+        HttpUrl.Builder urlBuilder = HttpUrl.parse(url).newBuilder();
+        urlBuilder.addEncodedPathSegment("top-headlines");
+
+        urlBuilder.addQueryParameter("category". category.toString());
+        urlBuilder.addQueryParameter("country", choice.toString());
+        return request(urlBuilder);
+    }
+
+    public NewsResponse getAllNews (String query, Language language){
+        HttpUrl.Builder urlBuilder = HttpUrl.parse(root).newBuilder();
+        urlBuilder.addPathSegment("everything");
+
+        urlBuilder.addQueryParameter("q", query);
+        urlBuilder.addQueryParameter("language", language.toString());
+        return handleRequest(urlBuilder);
     }
 
 }
