@@ -1,23 +1,20 @@
 package at.ac.fhcampuswien.controllers;
 
-import at.ac.fhcampuswien.models.Article;
-
 import at.ac.fhcampuswien.NewsApi;
-import at.ac.fhcampuswien.response.NewsResponse;
+import at.ac.fhcampuswien.models.NewsResponse;
 import at.ac.fhcampuswien.models.Article;
-import org.intellij.lang.annotations.Language;
 
-import javax.xml.transform.Source;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Locale;
 
 public class AppController {
-    String query;
+
     private List<Article> articles;
+    private  NewsResponse newsResponse;
 
     public AppController() {
-        //articles = generateMockList();
+        articles = new ArrayList<Article>();
+        newsResponse = new NewsResponse();
     }
 
     public void setArticles(List<Article> articles){
@@ -34,10 +31,7 @@ public class AppController {
      * @return size of article list
      */
     public int getArticleCount(){
-        if(articles != null) {
-            return articles.size();
-        }
-        return 0;
+        return NewsApi.getInstance().getTotalNews().getTotalResults();
     }
 
     /**
@@ -45,11 +39,16 @@ public class AppController {
      * not implemented yet
      * @return article list
      */
+
+    // GetTopHeadlines Methode aus NewsApi wird gerufen wo die URL gebaut wird.
+    // Es wird überprüft ob es zu einer Antwort von NewsResponse kommt, wenn
+    // nicht wird eine leere Liste zurückgeliefert, wenn schon werden die Artikel zurpckgegeben.
     public List<Article> getTopHeadlinesAustria() {
         NewsResponse newsResponse = NewsApi.getInstance().getTopHeadlines("AT", NewsApi.Category.general, NewsApi.Country.at);
-        if(newsResponse == null){
+
+        if (newsResponse == null) {
             return new ArrayList<>();
-        }else {
+        }else  {
             return newsResponse.getArticles();
         }
     }
@@ -69,7 +68,7 @@ public class AppController {
         }
     }
 
-    /**
+    /*
      * method to generate a mocking list of articles
      * @return list of generated articles
      */

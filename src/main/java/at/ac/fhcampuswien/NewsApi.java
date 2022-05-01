@@ -1,15 +1,13 @@
 package at.ac.fhcampuswien;
 
+import at.ac.fhcampuswien.models.NewsResponse;
 import com.google.gson.Gson;
-import jdk.jfr.Category;
 import okhttp3.HttpUrl;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
-import at.ac.fhcampuswien.response.NewsResponse;
-import org.intellij.lang.annotations.Language;
 
-import java.sql.SQLOutput;
+
 
 public class NewsApi {
 
@@ -101,6 +99,14 @@ public class NewsApi {
 
         urlBuilder.addQueryParameter("category", category.toString());
         urlBuilder.addQueryParameter("country", choice.toString());
+        return request(urlBuilder);
+    }
+
+    public NewsResponse getTotalNews() {
+        HttpUrl.Builder urlBuilder = HttpUrl.parse(url).newBuilder();
+        urlBuilder.addPathSegment("everything");
+        urlBuilder.addQueryParameter("q", "*");
+
         return request(urlBuilder);
     }
 

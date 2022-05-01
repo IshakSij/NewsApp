@@ -1,18 +1,17 @@
 package at.ac.fhcampuswien.models;
 
-import javax.xml.transform.Source;
-
 public class Article {
-    private final String description;
-    private final String url;
-    private final String urlToImage;
-    private final String publishedAt;
-    private final String content;
     private String author;
     private String title;
+    private String description;
+    private String url;
+    private String urlToImage;
+    private String publishedAt;
+    private String content;
     private Source source;
 
-    public Article(String author, String title, String description, String url, String urlToImage, String publishedAt, String content) {
+
+    public Article(String author, String title, String description, String url, String urlToImage, String publishedAt, String content){
         this.author = author;
         this.title = title;
         this.description = description;
@@ -29,7 +28,6 @@ public class Article {
     public String getTitle() {
         return title;
     }
-
 
     public String getDescription() {
         return description;
@@ -78,6 +76,7 @@ public class Article {
                 ", url='" + url + '\'' +
                 ", urlToImage='" + urlToImage + '\'' +
                 ", publishedAt='" + publishedAt + '\'' +
-                ", content='" + content + '\'' + "}";
+                ", content='" + content + '\'' +
+                '}';
     }
 }
