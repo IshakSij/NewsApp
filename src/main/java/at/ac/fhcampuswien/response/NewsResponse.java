@@ -15,7 +15,7 @@ public class NewsResponse {
         this.articles = articles;
     }
 
-    public NewsResponse{
+    public NewsResponse() {
 
     }
 
