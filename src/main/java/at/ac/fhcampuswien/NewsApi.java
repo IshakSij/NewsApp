@@ -18,6 +18,21 @@ public class NewsApi {
 
     private static NewsApi instance;
     private static OkHttpClient client;
+
+    // enums will be used in AppController
+    public enum Language {ar, de, en, es, fr, he, it, nl, no, pt, ru, se, ud, zh}
+    public enum Category {business, entertainment, general, health, science, sports, technology}
+    public enum Country {ae, ar, at, au, be, bg, br, ca, ch, cn, co, cu, cz, de, eg, fr, gb, gr,
+        hk, hu, id, ie, il, in, it, jp, kr, lt, lv, ma, mx, my, ng, nl, no, nz, ph, pl, pt, ro, rs, ru,
+        sa, se, sg, si, sk, th, tr, tw, ua, us, ve, za }
+    public enum SortBy {relevancy, popularity, publishedAt}
+
+
+    // for the simplicity, so the same instance gets used
+    private NewsApi() {
+        client = new OkHttpClient();
+    }
+
     /*
     private static String endpoint;
     private static String q = "https://newsapi.org/v2/everything?q=bitcoin&apiKey=4d43c7f5019b4865b5e5117f1b59943e";
@@ -64,17 +79,17 @@ public class NewsApi {
         return instance;
     }
 
-    private NewsResponse request(HttpUrl.Builder urlBuilder){
+    private NewsResponse request(HttpUrl.Builder urlBuilder) {
         urlBuilder.addQueryParameter("apiKey", apiKey);
 
-        Request request = new Request().url(urlBuilder()).build();
+        Request request = new Request.Builder().url(urlBuilder.build()).build();
 
-        try (Response response = client.newCall(request).execute()){
+        try (Response response = client.newCall(request).execute()) {
             Gson gson = new Gson();
             String responseString = response.body().string();
             NewsResponse newsResponse = gson.fromJson(responseString, NewsResponse.class);
             return newsResponse;
-        } catch (Exception e){
+        } catch (Exception e) {
             System.out.println("Something went wrong!");
             return null;
         }
@@ -84,7 +99,7 @@ public class NewsApi {
         HttpUrl.Builder urlBuilder = HttpUrl.parse(url).newBuilder();
         urlBuilder.addEncodedPathSegment("top-headlines");
 
-        urlBuilder.addQueryParameter("category". category.toString());
+        urlBuilder.addQueryParameter("category".category.toString());
         urlBuilder.addQueryParameter("country", choice.toString());
         return request(urlBuilder);
     }
